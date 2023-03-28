@@ -12,7 +12,7 @@ class Format extends Model
     use HasUuid;
 
     protected $fillable=[
-        'name',
-        'description',
+      'name',
+      'description',
     ];
 }

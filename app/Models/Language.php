@@ -10,11 +10,10 @@ class Language extends Model
 {
     use HasFactory;
     use HasUuid;
+
     protected $fillable = [
         'name',
         'code',
-        'description',
+        'description'
     ];
-
-
 }
