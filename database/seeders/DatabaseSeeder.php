@@ -20,13 +20,16 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
+            AuthorSeeder::class,
             LanguageSeeder::class,
             FormatSeeder::class,
-            GenreSeeder::class,
-            CountrySeeder::class,
-            PublisherSeeder::class,
-            // AuthorSeeder::class,
+
             // BookSeeder::class,
+            // ItemStatusSeeder::class,
+            // PublisherSeeder::class,
+            // CountrySeeder::class,
+            GenreSeeder::class,
+
         ]);
     }
 }
