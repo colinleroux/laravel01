@@ -6,9 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-
-
-
 class StoreGenreAPIRequest extends FormRequest
 {
     /**
@@ -38,12 +35,12 @@ class StoreGenreAPIRequest extends FormRequest
             ],
             'uuid' => [
                 'nullable',
-            ]
+            ],
         ];
     }
-        public function failedValidation(Validator $validator, $code=400)
+        public function failedValidation(Validator $validator)
         {
-            throw new \HttpResponseException(
+            throw new HttpResponseException(
                 response()->json(
                     [
                     'success' => false,

@@ -86,8 +86,8 @@ class LanguageApiController extends ApiBaseController
             ];
 
             $results = $language->update($validated);
-
-            if (isset($results) && $results->count() > 0) {
+        //print_r($results);
+            if (isset($results)) {
                 return $this->sendResponse(
                     $results,
                     "Updated successfully.",

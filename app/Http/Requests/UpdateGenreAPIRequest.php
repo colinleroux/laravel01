@@ -2,8 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Genre;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
 class UpdateGenreAPIRequest extends FormRequest
 {
@@ -22,7 +25,7 @@ class UpdateGenreAPIRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => [
                 'sometimes',
                 'unique:genres',
@@ -42,7 +45,7 @@ class UpdateGenreAPIRequest extends FormRequest
                 'success' => false,
                 'message' => 'Validation errors',
                 'data' => $validator->errors(),
-            ],
+            ])
 
         );
     }
