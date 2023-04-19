@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\ApiBaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PaginationAPIRequest;
 use App\Http\Requests\StoreGenreAPIRequest;
 use App\Http\Requests\UpdateGenreAPIRequest;
 use App\Models\Genre;
@@ -19,9 +20,9 @@ class GenreApiController extends ApiBaseController
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(PaginationAPIRequest $request): JsonResponse
     {
-        $genres = Genre::all();
+        $genres = Genre::paginate($request['per_page']);
 
         if (!is_null($genres) && $genres->count() > 0) {
             return $this->sendResponse(

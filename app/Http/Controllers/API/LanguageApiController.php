@@ -86,7 +86,7 @@ class LanguageApiController extends ApiBaseController
             ];
 
             $results = $language->update($validated);
-        //print_r($results);
+        //print_r($results); removed count on boolean
             if (isset($results)) {
                 return $this->sendResponse(
                     $results,
