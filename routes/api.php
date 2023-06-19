@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\PublisherAPIController;
+use App\Http\Controllers\API\UserAPIController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\LanguageApiController;
@@ -20,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::resource( name: 'languages', controller: LanguageApiController::class);
 Route::resource('genres', GenreApiController::class);
+Route::resource('users', UserApiController::class);
+Route::resource('publishers', PublisherAPIController::class);

@@ -12,10 +12,10 @@ return new class extends Migration {
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->id();
-            $table->string("given_name", 128);
+            $table->string("given_name", 128)->nullable();
             $table->string("other_names", 128)->nullable();
             $table->string("family_name", 128)->nullable();
-            $table->string("country");
+            $table->string("country")->nullable();
             $table->datetime("date_of_birth")->nullable();
             $table->datetime("date_of_death")->nullable();
             $table->timestamps();

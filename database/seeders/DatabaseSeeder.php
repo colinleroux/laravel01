@@ -23,11 +23,11 @@ class DatabaseSeeder extends Seeder
             AuthorSeeder::class,
             LanguageSeeder::class,
             FormatSeeder::class,
-
-            // BookSeeder::class,
-            // ItemStatusSeeder::class,
-            // PublisherSeeder::class,
-            // CountrySeeder::class,
+            UserSeeder::class,
+            BookSeeder::class,
+           //  ItemStatusSeeder::class,
+            PublisherSeeder::class,
+             CountrySeeder::class,
             GenreSeeder::class,
 
         ]);

@@ -2,24 +2,51 @@
 
 namespace App\Models;
 
+use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\HasUuid;
-
 
 class Author extends Model
 {
     use HasFactory;
     use HasUuid;
-
     protected $fillable = [
-        "given_name",
-        "other_names",
-        "family_name",
-        "country",
-        "date_of_birth",
-        "date_of_death",
+        'given_name',
+        'family_name',
+        'is_company',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 
+    /**
+     * Return the full name of the author
+     *
+     * Default is Given - Family order (true)
+     *
+     * @param $direction Given-Family (true) or Family-Given (false)
+     * @return string
+     */
+    public function fullName($direction = true): string
+    {
+        return $direction ? "{$this->given_name} {$this->family_name}" : "{$this->family_name} {$this->given_name}";
+    }
+
+
+    /**
+     * Create the author may write MANY books relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function books()
+    {
+        return $this->belongsToMany(Book::class);
+    }
 }

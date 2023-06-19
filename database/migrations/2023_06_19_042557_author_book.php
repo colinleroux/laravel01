@@ -8,23 +8,26 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('countries', function (Blueprint $table) {
+        Schema::create('author_book', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('code_2');
-            $table->string('code_3');
+            $table->unsignedBigInteger('author_id')->default(1);
+            $table->unsignedBigInteger('book_id')->default(1);
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('countries');
+        Schema::dropIfExists('author_book');
     }
 };

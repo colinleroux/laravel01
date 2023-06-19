@@ -50,3 +50,5 @@ curl https://laravel.build/ICT50220-Library | bash
 ### Documentation
 
 Contained in the [_docs](_docs) folder.
+
+API documentation can be viewed here : http://laravel01/docs

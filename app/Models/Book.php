@@ -2,30 +2,44 @@
 
 namespace App\Models;
 
+use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\HasUuid;
 
 class Book extends Model
 {
     use HasFactory;
     use HasUuid;
-
     protected $fillable = [
-        "title",
-        "sub_title",
-        "series",
-        "isbn13",
-        "edition",
-        "is_fiction",
-        "language",
-        "published",
-        "format",
-        "publisher_id",
-        "uuid",
+        'title',
+        'subtitle',
+        'year_published',
+        'edition',
+        'isbn_10',
+        'isbn_13',
+        'height',
+        'genre',
+        'sub_genre',
     ];
 
-    public function publisher(){
-        return $this->belongsTo(Publisher::class);
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
+    /**
+     * Return the Authors of a book (Many-to-many)
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function authors()
+    {
+        return $this->belongsToMany(Author::class);
     }
+
 }
