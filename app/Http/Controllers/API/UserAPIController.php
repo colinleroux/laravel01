@@ -7,7 +7,7 @@ use App\Http\Requests\PaginationAPIRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class UserAPIController extends ApiBaseController
 {
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\API\ApiBaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Language;
+use App\Traits\HttpResponses;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -14,6 +15,7 @@ use function PHPUnit\Framework\isNull;
 
 class LanguageApiController extends ApiBaseController
 {
+    use HttpResponses;
     /**
      * Display a listing of the resource.
      */
