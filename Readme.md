@@ -1,4 +1,14 @@
-# About ICT50220 Library
+## Table of Contents
+
+- [About](#about)
+- [Requirements](#requirements)
+- [Usage](#how-to-use)
+- [Credits](#credits)
+- [Contributing](#contributing)
+
+
+
+# About
 
 This application is employed for learning and assessing the development of:
 
@@ -15,16 +25,15 @@ This application is employed for learning and assessing the development of:
 - Users: given names, family names, preferred name/alias, email, password, ...
 - Members: given names, family names, preferred name/alias, email, password, ...
 - Condition: name, description
-- ... more to come
+
 
 ## Developers
 
 - Adrian Gould <adrian.gould@nmtafe.wa.edu.au> (Lead Developer)
 - Colin le Roux <20201520@tafe.wa.edu.au> (Developer)
 
-## Requirements
+# Requirements
 
-- Docker (or Docker Desktop)
 - PHP 8.2+
 - Composer
 - NodeJS 16+
@@ -33,22 +42,19 @@ This application is employed for learning and assessing the development of:
 - Meilisearch
 - Redis
 - MySQL 8+
-- ...
+- Scribe
 
-The application uses Laravel Sail to start and stop the development environment.
 
-### Initial Application
-Base Application created using:
-```bash
-curl https://laravel.build/ICT50220-Library | bash
-```
+# Version Control
 
-### Version Control
+Source is available at github.com/colinleroux/laravel01
 
-- Will be used for each feature being implemented
-
-### Documentation
+# Documentation
 
 Contained in the [_docs](_docs) folder.
 
 API documentation can be viewed here : http://laravel01/docs
+
+# how-to-use
+
+This API can be used via an API client like Postman or insomnia
