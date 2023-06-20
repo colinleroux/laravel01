@@ -1,69 +1,92 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
-use App\Traits\HttpResponses;
+use App\Models\Author;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 class BookController extends Controller
 {
-    use HttpResponses;
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $books = Book::with('authors')->paginate(20);
+
+        return view('books.index', compact('books'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function show($id)
+    {
+        try {
+            $book = Book::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            $errorMessage = "Book not found";
+            return view('books.show', compact('errorMessage'));
+        }
+
+        return view('books.show', compact('book'));
+    }
+
     public function create()
     {
-        //
+        $authors = Author::all();
+
+        return view('books.create', compact('authors'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreBookRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'isbn_10' => 'required|unique:books,isbn_10',
+            'isbn_13' => 'required|unique:books,isbn_13',
+            'authors' => 'required|array',
+        ]);
+
+        $book = Book::create($request->except('authors')); // Exclude 'authors' from mass assignment
+        $book->authors()->attach($request->input('authors')); // Attach selected authors to the book
+
+        return redirect()->route('books.index')->with('success', 'Book created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Book $book)
+    public function edit($id)
     {
-        //
+        $book = Book::find($id);
+        $authors = Author::all();
+
+        if (!$book) {
+            return view('books.edit')->with('message', 'Book Not Found');
+        }
+
+        return view('books.edit', compact('book', 'authors'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Book $book)
+
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'isbn_10' => ['required', 'max:10', 'unique:books,isbn_10,' . $id],
+            'isbn_13' => ['required', 'max:13', 'unique:books,isbn_13,' . $id],
+            'authors' => 'required|array',
+        ]);
+
+        $book = Book::findOrFail($id);
+        $book->update($request->except('authors')); // Exclude 'authors' from update
+        $book->authors()->sync($request->input('authors')); // Sync selected authors
+
+        return redirect()->route('books.index')->with('success', 'Book updated successfully.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateBookRequest $request, Book $book)
+    public function destroy($id)
     {
-        //
-    }
+        try {
+            $book = Book::findOrFail($id);
+            $book->authors()->detach();
+            $book->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Book $book)
-    {
-        //
-    }
-}
+            return redirect()->back()->with('bookDeleted', true);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            abort(404, 'Book not found');
+        }
+    }}
