@@ -12,12 +12,38 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Js;
 use Psy\Util\Json;
 use function PHPUnit\Framework\isNull;
-
+/**
+ * @group Languages
+ * API's for languages.
+ */
 class LanguageApiController extends ApiBaseController
 {
     use HttpResponses;
+
     /**
-     * Display a listing of the resource.
+     * Display a listing of languages.
+     *
+     * @response {
+     *   "data": [
+     *     {
+     *       "id": 1,
+     *       "name": "English",
+     *       "code": "en",
+     *       "description": "English language",
+     *       "created_at": "2023-07-10 09:00:00",
+     *       "updated_at": "2023-07-10 09:00:00"
+     *     },
+     *     {
+     *       "id": 2,
+     *       "name": "Spanish",
+     *       "code": "es",
+     *       "description": "Spanish language",
+     *       "created_at": "2023-07-10 09:00:00",
+     *       "updated_at": "2023-07-10 09:00:00"
+     *     }
+     *   ]
+     * }
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(): JsonResponse
     {
@@ -34,7 +60,20 @@ class LanguageApiController extends ApiBaseController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created language in storage.
+     *
+     * @bodyParams string $name The name of the language
+     * @bodyParams string $code The code of the language
+     * @bodyParams string $description The description of the language
+     * @response {
+     *   "id": 3,
+     *   "name": "French",
+     *   "code": "fr",
+     *   "description": "French language",
+     *   "created_at": "2023-07-10 09:00:00",
+     *   "updated_at": "2023-07-10 09:00:00"
+     * }
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request): JsonResponse
     {
@@ -57,7 +96,18 @@ class LanguageApiController extends ApiBaseController
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified language.
+     *
+     * @response {
+     *   "id": 1,
+     *   "name": "English",
+     *   "code": "en",
+     *   "description": "English language",
+     *   "created_at": "2023-07-10 09:00:00",
+     *   "updated_at": "2023-07-10 09:00:00"
+     * }
+     * @param string $id
+     * @return JsonResponse
      */
     public function show(string $id): JsonResponse
     {
@@ -74,7 +124,22 @@ class LanguageApiController extends ApiBaseController
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified language in storage.
+     *
+     * @bodyParams string $name The updated name of the language
+     * @bodyParams string $code The updated code of the language
+     * @bodyParams string $description The updated description of the language
+     * @response {
+     *   "id": 1,
+     *   "name": "English",
+     *   "code": "en",
+     *   "description": "Updated description",
+     *   "created_at": "2023-07-10 09:00:00",
+     *   "updated_at": "2023-07-10 10:00:00"
+     * }
+     * @param Request $request
+     * @param string $id
+     * @return JsonResponse
      */
     public function update(Request $request, string $id): JsonResponse
     {
@@ -103,7 +168,11 @@ class LanguageApiController extends ApiBaseController
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified language from storage.
+     *
+     * @response "Deleted successfully."
+     * @param string $id
+     * @return JsonResponse
      */
     public function destroy(string $id): JsonResponse
     {

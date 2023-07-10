@@ -6,11 +6,35 @@ use App\Http\Controllers\Controller;
 use App\Models\Book;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
+/**
+ * @group Books
+ * APIs for books.
+ */
 class BookAPIController extends ApiBaseController
 {
     /**
-     * Display a listing of the resource.
+     * @group Books
+     * Display a listing of books.
+     *
+     * @response {
+     *   "data": [
+     *     {
+     *       "id": 1,
+     *       "title": "Book 1",
+     *       "author": "John Doe",
+     *       "created_at": "2023-07-10 09:00:00",
+     *       "updated_at": "2023-07-10 09:00:00"
+     *     },
+     *     {
+     *       "id": 2,
+     *       "title": "Book 2",
+     *       "author": "Jane Smith",
+     *       "created_at": "2023-07-10 09:00:00",
+     *       "updated_at": "2023-07-10 09:00:00"
+     *     }
+     *   ]
+     * }
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(): JsonResponse
     {

@@ -14,11 +14,50 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Js;
 use Psy\Util\Json;
 use function PHPUnit\Framework\isNull;
-
+/**
+ * @group Genres
+ * APIs for managing genres
+ *
+ */
 class GenreApiController extends ApiBaseController
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the genres
+     *
+     * @bodyParams int $per_page The number of genres per page (default: 15)
+     * @response {
+     *   "data": [
+     *     {
+     *       "id": 1,
+     *       "name": "Action",
+     *       "created_at": "2023-07-10 09:00:00",
+     *       "updated_at": "2023-07-10 09:00:00"
+     *     },
+     *     {
+     *       "id": 2,
+     *       "name": "Comedy",
+     *       "created_at": "2023-07-10 09:00:00",
+     *       "updated_at": "2023-07-10 09:00:00"
+     *     }
+     *   ],
+     *   "links": {
+     *     "first": "http://localhost/api/genres?page=1",
+     *     "last": "http://localhost/api/genres?page=2",
+     *     "prev": null,
+     *     "next": "http://localhost/api/genres?page=2"
+     *   },
+     *   "meta": {
+     *     "current_page": 1,
+     *     "from": 1,
+     *     "last_page": 2,
+     *     "path": "http://localhost/api/genres",
+     *     "per_page": 15,
+     *     "to": 15,
+     *     "total": 25
+     *   }
+     * }
+     * @param PaginationAPIRequest $request
+     * @return JsonResponse
      */
     public function index(PaginationAPIRequest $request): JsonResponse
     {
@@ -35,7 +74,17 @@ class GenreApiController extends ApiBaseController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new genre
+     *
+     * @bodyParams string $name The name of the genre
+     * @response {
+     *   "id": 3,
+     *   "name": "Drama",
+     *   "created_at": "2023-07-10 09:00:00",
+     *   "updated_at": "2023-07-10 09:00:00"
+     * }
+     * @param StoreGenreAPIRequest $request
+     * @return JsonResponse
      */
     public function store(StoreGenreAPIRequest $request): JsonResponse
     {
@@ -54,7 +103,16 @@ class GenreApiController extends ApiBaseController
     }
 
     /**
-     * Display the specified resource.
+     * Display a genre
+     *
+     * @response {
+     *   "id": 1,
+     *   "name": "Action",
+     *   "created_at": "2023-07-10 09:00:00",
+     *   "updated_at": "2023-07-10 09:00:00"
+     * }
+     * @param string $uuid
+     * @return JsonResponse
      */
     public function show(string $uuid): JsonResponse
     {
@@ -72,7 +130,18 @@ class GenreApiController extends ApiBaseController
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a genre
+     *
+     * @bodyParams string $name The updated name of the genre
+     * @response {
+     *   "id": 1,
+     *   "name": "Thriller",
+     *   "created_at": "2023-07-10 09:00:00",
+     *   "updated_at": "2023-07-10 09:15:00"
+     * }
+     * @param UpdateGenreAPIRequest $request
+     * @param string $uuid
+     * @return JsonResponse
      */
     public function update(UpdateGenreAPIRequest $request, string $uuid): JsonResponse
     {
@@ -97,7 +166,11 @@ class GenreApiController extends ApiBaseController
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove a genre
+     *
+     * @response "Deleted genre successfully."
+     * @param string $uuid
+     * @return JsonResponse
      */
     public function destroy(string $uuid): JsonResponse
     {
